@@ -1,0 +1,34 @@
+plugins {
+	id 'com.github.johnrengelman.shadow' version '6.1.0'
+}
+
+apply plugin: 'java'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.apache.commons:commons-imaging:1.0-alpha3'
+
+	//noinspection GradlePackageUpdate
+	implementation 'commons-io:commons-io:2.11.0'
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+wrapper {
+	gradleVersion = '6.9.2'
+}
+
+task getDeps(type: Copy) {
+	from sourceSets.main.runtimeClasspath
+	into 'build/runtime/'
+}
