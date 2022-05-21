@@ -4,6 +4,7 @@ import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.awt.image.RasterFormatException;
 import java.io.IOException;
 
 /**
@@ -17,7 +18,7 @@ public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] inputData) {
 		try {
 			Imaging.getAllBufferedImages(inputData);
-		} catch (ImageReadException | IOException | IllegalArgumentException e) {
+		} catch (ImageReadException | RasterFormatException | IOException | IllegalArgumentException e) {
 			// expected here
 		} catch (ArrayIndexOutOfBoundsException e) {
 			// TODO: should be fixed in the library
