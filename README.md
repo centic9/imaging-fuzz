@@ -10,9 +10,8 @@ focuses on the following:
 * verify any JNI or native code calls 
 * find cases of unbounded memory allocations
 
-Apache Commons Imaging uses JNI for at least ZStd, so the fuzzing target
-tries to trigger this and also any other unexpected exceptions and 
-unbounded memory allocations.
+Apache Commons Imaging does not use JNI or native code, therefore the fuzzing target mainly
+tries to trigger unexpected exceptions and unbounded memory allocations.
 
 # How to fuzz
 
@@ -22,7 +21,7 @@ Build the fuzzing target:
 
 Copy over the corpus of test-files from Apache Commons Imaging sources
 
-    cp -a /opt/commons-imaging/src/test/resources corpus/
+    cp -a /opt/commons-imaging/src/test/resources corpus
 
 You can add documents from other testing-corpora as well. Valid documents
 as well as slightly broken ones are good sources as this helps the fuzzer 
