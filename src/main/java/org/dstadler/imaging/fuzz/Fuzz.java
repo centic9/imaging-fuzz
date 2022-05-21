@@ -2,6 +2,7 @@ package org.dstadler.imaging.fuzz;
 
 import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.io.IOException;
 
@@ -18,6 +19,14 @@ public class Fuzz {
 			Imaging.getAllBufferedImages(inputData);
 		} catch (ImageReadException | IOException | IllegalArgumentException e) {
 			// expected here
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// TODO: should be fixed in the library
+			// https://issues.apache.org/jira/browse/IMAGING-334
+			// https://issues.apache.org/jira/browse/IMAGING-276
+			// https://issues.apache.org/jira/browse/IMAGING-277
+		} catch (OutOfMemoryError e) {
+			// TODO: should be fixed in the library
+			// https://issues.apache.org/jira/browse/IMAGING-332
 		}
 
 		try {
@@ -30,18 +39,35 @@ public class Fuzz {
 			Imaging.getICCProfile(inputData);
 		} catch (ImageReadException | IOException | IllegalArgumentException e) {
 			// expected here
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// TODO: should be fixed in the library
+			// https://issues.apache.org/jira/browse/IMAGING-334
+			// https://issues.apache.org/jira/browse/IMAGING-276
+			// https://issues.apache.org/jira/browse/IMAGING-277
 		}
 
 		try {
 			Imaging.getImageInfo(inputData);
 		} catch (ImageReadException | IOException | IllegalArgumentException e) {
 			// expected here
+		} catch (IndexOutOfBoundsException e) {
+			// TODO: should be fixed in the library at some point
+			// https://issues.apache.org/jira/browse/IMAGING-333
 		}
 
 		try {
 			Imaging.getMetadata(inputData);
 		} catch (ImageReadException | IOException | IllegalArgumentException e) {
 			// expected here
+		} catch (NullPointerException e) {
+			// TODO: ignore one NPE that should be fixed in the library
+			// https://issues.apache.org/jira/browse/IMAGING-282
+			if (!ExceptionUtils.getStackTrace(e).contains("GifImageParser.getMetadata")) {
+				throw e;
+			}
+		} catch (ArrayIndexOutOfBoundsException e) {
+			// TODO: should be fixed in the library
+			// https://issues.apache.org/jira/browse/IMAGING-276
 		}
 
 		try {
