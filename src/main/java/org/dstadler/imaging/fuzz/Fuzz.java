@@ -45,12 +45,6 @@ public class Fuzz {
 			// https://issues.apache.org/jira/browse/IMAGING-334
 			// https://issues.apache.org/jira/browse/IMAGING-276
 			// https://issues.apache.org/jira/browse/IMAGING-277
-		} catch (NullPointerException e) {
-			// TODO: should be fixed in the library
-			// https://issues.apache.org/jira/browse/IMAGING-335O
-			if (!ExceptionUtils.getStackTrace(e).contains("App2Segment.getIccBytes")) {
-				throw e;
-			}
 		}
 
 		try {
