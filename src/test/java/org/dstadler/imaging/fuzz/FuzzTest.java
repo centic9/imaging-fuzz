@@ -1,5 +1,7 @@
 package org.dstadler.imaging.fuzz;
 
+import org.apache.commons.imaging.ImageReadException;
+import org.apache.commons.imaging.Imaging;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -20,6 +22,18 @@ class FuzzTest {
 	public void testImageFile() throws IOException {
 		byte[] bytes = FileUtils.readFileToByteArray(new File("src/test/resources/test.jpg"));
 		Fuzz.fuzzerTestOneInput(bytes);
+	}
+
+	@Test
+	public void testReproduceOOM() {
+		byte[] input = java.util.Base64.getDecoder().decode("iVBORw0KGgoAAAAbaUNDUMlDQyCrbAAtGHZwQWdQyUNDIKtsAAAYiVBORw0KGgp1AAAASURBVA0KGgoAAAANSUhEUgAAACAAIAQACAJ/2QAAsnMAAAAAAElFTkRCYAAY");
+		Fuzz.fuzzerTestOneInput(input);
+	}
+
+	@Test
+	public void testReproduceOOM2() throws IOException, ImageReadException {
+		byte[] input = java.util.Base64.getDecoder().decode("iVBORw0KGgoAAAAbaUNDUMlDQyCrbAAtGHZwQWdQyUNDIKtsAAAYiVBORw0KGgp1AAAASURBVA0KGgoAAAANSUhEUgAAACAAIAQACAJ/2QAAsnMAAAAAAElFTkRCYAAY");
+		Imaging.getAllBufferedImages(input);
 	}
 
 	@Disabled("Local test for verifying a slow run")
