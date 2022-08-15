@@ -27,13 +27,20 @@ class FuzzTest {
 	@Test
 	public void testReproduceOOM() {
 		byte[] input = java.util.Base64.getDecoder().decode("iVBORw0KGgoAAAAbaUNDUMlDQyCrbAAtGHZwQWdQyUNDIKtsAAAYiVBORw0KGgp1AAAASURBVA0KGgoAAAANSUhEUgAAACAAIAQACAJ/2QAAsnMAAAAAAElFTkRCYAAY");
+
+		// fuzz-target works even though an OOM happens because it currently ignores OOM!
 		Fuzz.fuzzerTestOneInput(input);
 	}
 
+	@Disabled("See https://issues.apache.org/jira/browse/IMAGING-332")
 	@Test
-	public void testReproduceOOM2() throws IOException, ImageReadException {
+	public void testReproduceOOM2() throws ImageReadException {
 		byte[] input = java.util.Base64.getDecoder().decode("iVBORw0KGgoAAAAbaUNDUMlDQyCrbAAtGHZwQWdQyUNDIKtsAAAYiVBORw0KGgp1AAAASURBVA0KGgoAAAANSUhEUgAAACAAIAQACAJ/2QAAsnMAAAAAAElFTkRCYAAY");
-		Imaging.getAllBufferedImages(input);
+		try {
+			Imaging.getAllBufferedImages(input);
+		} catch (IOException e) {
+			// expected here
+		}
 	}
 
 	@Disabled("Local test for verifying a slow run")
