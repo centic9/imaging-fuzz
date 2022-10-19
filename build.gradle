@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.apache.commons:commons-imaging:1.0-20220814.043056-149'
+	implementation 'org.apache.commons:commons-imaging:1.0-20221018.195209-182'
 
 	//noinspection GradlePackageUpdate
 	implementation 'commons-io:commons-io:2.11.0'
