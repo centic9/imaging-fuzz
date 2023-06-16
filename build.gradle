@@ -13,7 +13,7 @@ dependencies {
 	implementation 'org.apache.commons:commons-imaging:1.0-alpha3'
 
 	//noinspection GradlePackageUpdate
-	implementation 'commons-io:commons-io:2.12.0'
+	implementation 'commons-io:commons-io:2.13.0'
 	implementation 'org.apache.commons:commons-lang3:3.12.0'
 
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
