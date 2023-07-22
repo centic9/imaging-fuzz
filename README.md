@@ -21,6 +21,7 @@ Build the fuzzing target:
 
 Copy over the corpus of test-files from Apache Commons Imaging sources
 
+    git clone http://gitbox.apache.org/repos/asf/commons-imaging.git /opt/commons-imaging
     cp -a /opt/commons-imaging/src/test/resources corpus
 
 You can add documents from other testing-corpora as well. Valid documents
@@ -36,7 +37,7 @@ Unpack the archive:
 
 Invoke the fuzzing:
 
-    ~~./jazzer --cp=build/libs/imaging-fuzz-all.jar --instrumentation_includes=org.apache.commons.** --target_class=org.dstadler.imaging.fuzz.Fuzz -rss_limit_mb=1024 corpus~~
+    ./jazzer --cp=build/libs/imaging-fuzz-all.jar --instrumentation_includes=org.apache.commons.** --target_class=org.dstadler.imaging.fuzz.Fuzz -rss_limit_mb=1024 corpus
 
 In this mode Jazzer will stop whenever it detects an unexpected exception 
 or crashes.
