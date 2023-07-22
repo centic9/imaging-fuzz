@@ -1,0 +1,21 @@
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build the fuzz target
+      run: ./gradlew shadowJar
+
+    - name: Fetch initial corpus
+      run: git clone http://gitbox.apache.org/repos/asf/commons-imaging.git /tmp/commons-imaging
+
+    - name: Put corpus in place
+      run: cp -a /tmp/commons-imaging/src/test/resources corpus
+
+    - name: Fetch Jazzer
+      run: wget https://github.com/CodeIntelligenceTesting/jazzer/releases/download/v0.19.0/jazzer-linux.tar.gz
+
+    - name: Unpack Jazzer
+      run: tar xzf jazzer-*.tar.gz
+
+    - name: Run Fuzzing
+      run: ./jazzer --cp=build/libs/imaging-fuzz-all.jar --instrumentation_includes=org.apache.commons.** --target_class=org.dstadler.imaging.fuzz.Fuzz -rss_limit_mb=1024 corpus
