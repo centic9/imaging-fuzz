@@ -37,7 +37,7 @@ Unpack the archive:
 
 Invoke the fuzzing:
 
-    ./jazzer --cp=build/libs/imaging-fuzz-all.jar --instrumentation_includes=org.apache.commons.** --target_class=org.dstadler.imaging.fuzz.Fuzz -rss_limit_mb=1024 corpus
+    ./jazzer --cp=build/libs/imaging-fuzz-all.jar --instrumentation_includes=org.apache.commons.** --target_class=org.dstadler.imaging.fuzz.Fuzz -rss_limit_mb=2048 corpus
 
 In this mode Jazzer will stop whenever it detects an unexpected exception 
 or crashes.
