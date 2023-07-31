@@ -51,6 +51,9 @@ public class Fuzz {
 			if (!ExceptionUtils.getStackTrace(e).contains("App2Segment.getIccBytes")) {
 				throw e;
 			}
+		} catch (OutOfMemoryError e) {
+			// TODO: should be fixed in the library
+			// https://issues.apache.org/jira/browse/IMAGING-332
 		}
 
 		try {
