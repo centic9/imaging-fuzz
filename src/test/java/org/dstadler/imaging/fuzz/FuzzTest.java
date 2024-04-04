@@ -1,6 +1,5 @@
 package org.dstadler.imaging.fuzz;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Disabled;
@@ -28,13 +27,13 @@ class FuzzTest {
 	public void testReproduceOOM() {
 		byte[] input = java.util.Base64.getDecoder().decode("iVBORw0KGgoAAAAbaUNDUMlDQyCrbAAtGHZwQWdQyUNDIKtsAAAYiVBORw0KGgp1AAAASURBVA0KGgoAAAANSUhEUgAAACAAIAQACAJ/2QAAsnMAAAAAAElFTkRCYAAY");
 
-		// fuzz-target works even though an OOM happens because it currently ignores OOM!
+		// OOM should be prevented now via Allocator.check()
 		Fuzz.fuzzerTestOneInput(input);
 	}
 
 	@Disabled("See https://issues.apache.org/jira/browse/IMAGING-332")
 	@Test
-	public void testReproduceOOM2() throws ImageReadException {
+	public void testReproduceOOM2() {
 		byte[] input = java.util.Base64.getDecoder().decode("iVBORw0KGgoAAAAbaUNDUMlDQyCrbAAtGHZwQWdQyUNDIKtsAAAYiVBORw0KGgp1AAAASURBVA0KGgoAAAANSUhEUgAAACAAIAQACAJ/2QAAsnMAAAAAAElFTkRCYAAY");
 		try {
 			Imaging.getAllBufferedImages(input);

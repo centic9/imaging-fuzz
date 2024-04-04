@@ -1,7 +1,7 @@
 package org.dstadler.imaging.fuzz;
 
-import org.apache.commons.imaging.ImageReadException;
 import org.apache.commons.imaging.Imaging;
+import org.apache.commons.imaging.ImagingRuntimeException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import java.awt.image.RasterFormatException;
@@ -18,39 +18,30 @@ public class Fuzz {
 	public static void fuzzerTestOneInput(byte[] inputData) {
 		try {
 			Imaging.getAllBufferedImages(inputData);
-		} catch (ImageReadException | RasterFormatException | IOException | IllegalArgumentException e) {
+		} catch (RasterFormatException | IOException | IllegalArgumentException | ImagingRuntimeException e) {
 			// expected here
 		} catch (ArrayIndexOutOfBoundsException e) {
 			// TODO: should be fixed in the library
 			// https://issues.apache.org/jira/browse/IMAGING-334
 			// https://issues.apache.org/jira/browse/IMAGING-276
 			// https://issues.apache.org/jira/browse/IMAGING-277
-		} catch (OutOfMemoryError e) {
-			// TODO: should be fixed in the library
-			// https://issues.apache.org/jira/browse/IMAGING-332
 		}
 
 		try {
 			Imaging.getFormatCompliance(inputData);
-		} catch (ImageReadException | IOException | IllegalArgumentException e) {
+		} catch (IOException | IllegalArgumentException e) {
 			// expected here
 		}
 
 		try {
-			Imaging.getICCProfile(inputData);
-		} catch (ImageReadException | IOException | IllegalArgumentException e) {
+			Imaging.getIccProfile(inputData);
+		} catch (IOException | IllegalArgumentException e) {
 			// expected here
 		} catch (ArrayIndexOutOfBoundsException e) {
 			// TODO: should be fixed in the library
 			// https://issues.apache.org/jira/browse/IMAGING-334
 			// https://issues.apache.org/jira/browse/IMAGING-276
 			// https://issues.apache.org/jira/browse/IMAGING-277
-		} catch (NullPointerException e) {
-			// TODO: should be fixed in the library
-			// https://issues.apache.org/jira/browse/IMAGING-335
-			if (!ExceptionUtils.getStackTrace(e).contains("App2Segment.getIccBytes")) {
-				throw e;
-			}
 		} catch (OutOfMemoryError e) {
 			// TODO: should be fixed in the library
 			// https://issues.apache.org/jira/browse/IMAGING-332
@@ -58,7 +49,7 @@ public class Fuzz {
 
 		try {
 			Imaging.getImageInfo(inputData);
-		} catch (ImageReadException | IOException | IllegalArgumentException e) {
+		} catch (IOException | IllegalArgumentException e) {
 			// expected here
 		} catch (IndexOutOfBoundsException e) {
 			// TODO: should be fixed in the library at some point
@@ -67,7 +58,7 @@ public class Fuzz {
 
 		try {
 			Imaging.getMetadata(inputData);
-		} catch (ImageReadException | IOException | IllegalArgumentException e) {
+		} catch (IOException | IllegalArgumentException e) {
 			// expected here
 		} catch (NullPointerException e) {
 			// TODO: ignore one NPE that should be fixed in the library
@@ -82,7 +73,7 @@ public class Fuzz {
 
 		try {
 			Imaging.getXmpXml(inputData);
-		} catch (ImageReadException | IOException | IllegalArgumentException e) {
+		} catch (IOException | IllegalArgumentException e) {
 			// expected here
 		}
 
