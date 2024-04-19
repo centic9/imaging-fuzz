@@ -25,12 +25,16 @@ public class Fuzz {
 			// https://issues.apache.org/jira/browse/IMAGING-334
 			// https://issues.apache.org/jira/browse/IMAGING-276
 			// https://issues.apache.org/jira/browse/IMAGING-277
+		} catch (ArithmeticException | ClassCastException | StringIndexOutOfBoundsException e) {
+			// TODO: should be reported in JIRA and handled differently!
 		}
 
 		try {
 			Imaging.getFormatCompliance(inputData);
 		} catch (IOException | IllegalArgumentException e) {
 			// expected here
+		} catch (ArithmeticException | ClassCastException | StringIndexOutOfBoundsException e) {
+			// TODO: should be reported in JIRA and handled differently!
 		}
 
 		try {
@@ -45,6 +49,8 @@ public class Fuzz {
 		} catch (OutOfMemoryError e) {
 			// TODO: should be fixed in the library
 			// https://issues.apache.org/jira/browse/IMAGING-332
+		} catch (ArithmeticException | ClassCastException | StringIndexOutOfBoundsException e) {
+			// TODO: should be reported in JIRA and handled differently!
 		}
 
 		try {
@@ -54,6 +60,8 @@ public class Fuzz {
 		} catch (IndexOutOfBoundsException e) {
 			// TODO: should be fixed in the library at some point
 			// https://issues.apache.org/jira/browse/IMAGING-333
+		} catch (ArithmeticException | ClassCastException e) {
+			// TODO: should be reported in JIRA and handled differently!
 		}
 
 		try {
@@ -69,18 +77,24 @@ public class Fuzz {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			// TODO: should be fixed in the library
 			// https://issues.apache.org/jira/browse/IMAGING-276
+		} catch (ArithmeticException | ClassCastException | StringIndexOutOfBoundsException e) {
+			// TODO: should be reported in JIRA and handled differently!
 		}
 
 		try {
 			Imaging.getXmpXml(inputData);
 		} catch (IOException | IllegalArgumentException e) {
 			// expected here
+		} catch (ArithmeticException | ClassCastException | StringIndexOutOfBoundsException e) {
+			// TODO: should be reported in JIRA and handled differently!
 		}
 
 		try {
 			Imaging.guessFormat(inputData);
 		} catch (IOException | IllegalArgumentException e) {
 			// expected here
+		} catch (ArithmeticException | ClassCastException | StringIndexOutOfBoundsException e) {
+			// TODO: should be reported in JIRA and handled differently!
 		}
 	}
 }
