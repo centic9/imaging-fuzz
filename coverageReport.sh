@@ -17,7 +17,7 @@ mkdir -p build/imagingFiles
 cd build/imagingFiles
 
 # then unpack the class-files
-for i in `find ../runtime -name commons-imaging-*.jar`; do
+for i in ../runtime/commons-imaging-*.jar; do
   echo $i
   unzip -o -q $i
 done
@@ -33,6 +33,16 @@ rmdir lib
 
 mkdir -p build/jacoco
 
+echo
+if [[ "$(uname -s)" == CYGWIN* ]]; then
+  echo "Running under Cygwin"
+  JAZZER_DELIMITER=":"
+elif [[ "$(uname -s)" == MINGW* ]]; then
+  echo "Running under MINGW"
+  JAZZER_DELIMITER=":"
+else
+  JAZZER_DELIMITER="\\:"
+fi
 
 # Run Jazzer with JaCoCo-Agent to produce coverage information
 ./jazzer \
@@ -40,7 +50,7 @@ mkdir -p build/jacoco
   --instrumentation_includes=org.apache.commons.** \
   --target_class=org.dstadler.imaging.fuzz.Fuzz \
   --nohooks \
-  --jvm_args="-javaagent\\:build/jacocoagent.jar=destfile=build/jacoco/corpus.exec" \
+  --jvm_args="-javaagent${JAZZER_DELIMITER}build/jacocoagent.jar=destfile=build/jacoco/corpus.exec" \
   -rss_limit_mb=2048 \
   -runs=0 \
   corpus
