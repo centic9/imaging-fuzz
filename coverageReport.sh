@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 #
 # Small helper script to produce a coverage report when executing the fuzz-model
