@@ -46,9 +46,6 @@ public class Fuzz {
 			// https://issues.apache.org/jira/browse/IMAGING-334
 			// https://issues.apache.org/jira/browse/IMAGING-276
 			// https://issues.apache.org/jira/browse/IMAGING-277
-		} catch (OutOfMemoryError e) {
-			// TODO: should be fixed in the library
-			// https://issues.apache.org/jira/browse/IMAGING-332
 		} catch (ArithmeticException | ClassCastException | StringIndexOutOfBoundsException e) {
 			// TODO: should be reported in JIRA and handled differently!
 		}

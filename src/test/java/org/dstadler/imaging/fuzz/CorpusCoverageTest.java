@@ -37,7 +37,7 @@ public class CorpusCoverageTest {
 		System.err.println("Running file " + file + " in thread " + Thread.currentThread().getName());
 		try {
 			Fuzz.fuzzerTestOneInput(FileUtils.readFileToByteArray(file));
-		} catch (RuntimeException | OutOfMemoryError | AssertionError | StackOverflowError e) {
+		} catch (RuntimeException | AssertionError | StackOverflowError e) {
 			// ignore any problem in the corpus as we just want to capture coverage
 		}
 	}
